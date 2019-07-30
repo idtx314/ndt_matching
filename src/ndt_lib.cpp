@@ -12,13 +12,15 @@ NdtLib::~NdtLib()
 {
 }
 
-int NdtLib::map_update()
+int NdtLib::map_update(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
+    auto input = msg;
     return 0;
 }
 
 geometry_msgs::msg::Pose::SharedPtr NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
+    auto input = msg;
 
     // TODO: This function should perform alignment between the point cloud passed to it and the map stored in the NdtLib object.
     auto msg_out = std::make_shared<geometry_msgs::msg::Pose>();
