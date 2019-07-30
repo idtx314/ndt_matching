@@ -7,6 +7,7 @@
 
 #include "std_msgs/msg/string.hpp"
 #include <sensor_msgs/msg/point_cloud2.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 
 void print_usage()
 {
@@ -49,15 +50,15 @@ public:
     // they must have compatible Quality of Service policies.
     sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name, callback);
     sub2_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name2, callback2);
-    // TODO: create a pose publisher, see for reference
-    // https://github.com/ros2/demos/blob/master/demo_nodes_cpp/src/topics/talker.cpp
-    pub_ = create_publisher<std_msgs::msg::String>("newpub");
+    // TODONE: create a pose publisher, see for reference
+    pub_ = create_publisher<geometry_msgs::msg::Pose>("filtered_points", rmw_qos_profile_default);
+    // rclcpp::Rate loop_rate(10);
   }
 
 private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub2_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
+  rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr pub_;
 };
 
 int main(int argc, char * argv[])
