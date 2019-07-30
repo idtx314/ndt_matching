@@ -34,7 +34,16 @@ public:
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODO:
         // here you call NdtLib function and pass in the msg as input
-        // return a pose message and publish it as https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/PoseStamped.msg
+        // return a pose message
+
+        //TODO:
+        // Publish the pose as https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/PoseStamped.msg
+        geometry_msgs::msg::PoseStamped msg1;
+        // or
+        auto msg2 = std::make_shared<geometry_msgs::msg::PoseStamped>();
+
+        RCLCPP_INFO(this->get_logger(), "msg1: [%s]", msg1.header.frame_id.c_str());
+        RCLCPP_INFO(this->get_logger(), "msg2: [%s]", msg2->header.frame_id.c_str());
       };
 
     auto callback2 =
@@ -42,6 +51,7 @@ public:
       {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODO: here you get your map point cloud (one time only)
+
       };
 
     // Create a subscription to the topic which can be matched with one or more compatible ROS
