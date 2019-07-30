@@ -58,7 +58,11 @@ public:
       {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODONE: here you get your map point cloud (one time only)
-        int status = ndt_object_.update_map(msg);
+        int error = ndt_object_.update_map(msg);
+
+        if(!error){
+          RCLCPP_INFO(this->get_logger(), "Map Updated!");
+        }
 
       };
 
