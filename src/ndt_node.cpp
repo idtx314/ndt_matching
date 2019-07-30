@@ -7,7 +7,7 @@
 
 #include "std_msgs/msg/string.hpp"
 #include <sensor_msgs/msg/point_cloud2.hpp>
-#include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
 
 void print_usage()
 {
@@ -51,14 +51,14 @@ public:
     sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name, callback);
     sub2_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name2, callback2);
     // TODONE: create a pose publisher, see for reference
-    pub_ = create_publisher<geometry_msgs::msg::Pose>("filtered_points", rmw_qos_profile_default);
+    pub_ = create_publisher<geometry_msgs::msg::PoseStamped>("filtered_points", rmw_qos_profile_default);
     // rclcpp::Rate loop_rate(10);
   }
 
 private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub2_;
-  rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr pub_;
+  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_;
 };
 
 int main(int argc, char * argv[])
