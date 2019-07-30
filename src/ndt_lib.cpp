@@ -17,9 +17,9 @@ int NdtLib::map_update()
     return 0;
 }
 
-geometry_msgs::msg::Pose NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+geometry_msgs::msg::Pose::SharedPtr NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
-    geometry_msgs::msg::Pose msg_out;
+    auto msg_out = std::make_shared<geometry_msgs::msg::Pose>();
     return msg_out;
 }
 
