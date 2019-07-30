@@ -41,7 +41,7 @@ public:
 
 
         // Test Output
-        int num = 4;
+        int num = ndt_matching::re_3();
         RCLCPP_INFO(this->get_logger(), "msg2: [%d]", num);
 
         // return a pose message

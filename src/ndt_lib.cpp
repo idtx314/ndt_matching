@@ -18,4 +18,9 @@ NdtLib::~NdtLib()
 {
 }
 
+int re_3()
+{
+    return 3;
+}
+
 }  // namespace ndt_matching
