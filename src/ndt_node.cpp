@@ -37,11 +37,11 @@ public:
 
         //TODONE:
         // Create NdtLib object
-        ndt_matching::NdtLib ndt_object = ndt_matching::NdtLib();
+        ndt_object_ = ndt_matching::NdtLib();
 
         // Call NdtLib function and pass in the input message.
         // return a pose message
-        auto pose_out = ndt_object.align_scan(msg);
+        auto pose_out = ndt_object_.align_scan(msg);
 
         // Form posestamped message for publishing
         auto msg_out = std::make_shared<geometry_msgs::msg::PoseStamped>();
@@ -75,6 +75,8 @@ private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub2_;
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_;
+  ndt_matching::NdtLib ndt_object_;
+
 };
 
 int main(int argc, char * argv[])
