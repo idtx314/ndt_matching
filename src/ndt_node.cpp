@@ -33,17 +33,15 @@ public:
       {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODO:
-        // here you call NdtLib function and pass in the msg as input
+        // Call NdtLib function and pass in the input message.
         // return a pose message
+        auto msg_out = std::make_shared<geometry_msgs::msg::PoseStamped>();
+        // Form posestamped message for publishing
 
-        //TODO:
-        // Publish the pose as https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/PoseStamped.msg
-        geometry_msgs::msg::PoseStamped msg1;
-        // or
-        auto msg2 = std::make_shared<geometry_msgs::msg::PoseStamped>();
+        //TODONE:
+        // Publish the pose as a PoseStamped message.
+        pub_->publish(msg_out);
 
-        RCLCPP_INFO(this->get_logger(), "msg1: [%s]", msg1.header.frame_id.c_str());
-        RCLCPP_INFO(this->get_logger(), "msg2: [%s]", msg2->header.frame_id.c_str());
       };
 
     auto callback2 =
