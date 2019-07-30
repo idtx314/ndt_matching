@@ -1,6 +1,7 @@
 #ifndef NDT_MATCHING__NDT_LIB_HPP_
 #define NDT_MATCHING__NDT_LIB_HPP_
 
+#include <eigen3/Eigen/Dense>
 #include "ndt_matching/visibility_control.h"
 
 #include "rclcpp/rclcpp.hpp"
@@ -22,7 +23,7 @@ public:
   auto align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
-  double helper();
+  double cell_center();
 
 };
 

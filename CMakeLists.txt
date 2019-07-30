@@ -26,6 +26,7 @@ find_package(rcutils)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 add_library(ndt_lib src/ndt_lib.cpp)
 
@@ -33,7 +34,8 @@ ament_target_dependencies(ndt_lib
   "rclcpp"
   "std_msgs"
   "sensor_msgs"
-  "geometry_msgs")
+  "geometry_msgs"
+  Eigen3)
 
 target_include_directories(ndt_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
