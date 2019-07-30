@@ -23,7 +23,7 @@ class Listener : public rclcpp::Node
 {
 public:
   explicit Listener(const std::string & topic_name, const std::string & topic_name2 = "map")
-  : Node("listener")
+  : Node("listener") //ID: Creation of the node object
   {
     // Create a callback function for when messages are received.
     // Variations of this function also exist using, for example UniquePtr for zero-copy transport.
@@ -51,11 +51,13 @@ public:
     sub2_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name2, callback2);
     // TODO: create a pose publisher, see for reference
     // https://github.com/ros2/demos/blob/master/demo_nodes_cpp/src/topics/talker.cpp
+    pub_ = create_publisher<std_msgs::msg::String>("newpub");
   }
 
 private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub2_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
 };
 
 int main(int argc, char * argv[])
