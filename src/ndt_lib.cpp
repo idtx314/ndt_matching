@@ -12,8 +12,9 @@ NdtLib::~NdtLib()
 {
 }
 
-int NdtLib::map_update(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
+    //TODO: This function should take in a point cloud, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, and store the vector, the segmenting cell size, and the dimensions of the space as metadata in the parent class.
     auto input = msg;
     return 0;
 }

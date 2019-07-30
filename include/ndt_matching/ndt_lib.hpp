@@ -18,7 +18,7 @@ public:
   NdtLib();
   virtual ~NdtLib();
 
-  int map_update(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
+  int update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
   geometry_msgs::msg::Pose::SharedPtr align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 };
 

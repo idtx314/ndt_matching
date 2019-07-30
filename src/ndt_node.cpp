@@ -28,6 +28,10 @@ public:
   explicit Listener(const std::string & topic_name, const std::string & topic_name2 = "map")
   : Node("listener") //ID: Creation of the node object
   {
+    // Create the NdtLib object at the class scope.
+    ndt_object_ = ndt_matching::NdtLib();
+
+
     // Create a callback function for when messages are received.
     // Variations of this function also exist using, for example UniquePtr for zero-copy transport.
     auto callback =
@@ -36,9 +40,6 @@ public:
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
 
         //TODONE:
-        // Create NdtLib object
-        ndt_object_ = ndt_matching::NdtLib();
-
         // Call NdtLib function and pass in the input message.
         // return a pose message
         auto pose_out = ndt_object_.align_scan(msg);
@@ -56,7 +57,8 @@ public:
     [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) -> void
       {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
-        //TODO: here you get your map point cloud (one time only)
+        //TODONE: here you get your map point cloud (one time only)
+        int status = ndt_object_.update_map(msg);
 
       };
 
