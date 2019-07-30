@@ -7,6 +7,7 @@
 
 #include "std_msgs/msg/string.hpp"
 #include <sensor_msgs/msg/point_cloud2.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 
 void print_usage()
@@ -35,8 +36,10 @@ public:
         //TODO:
         // Call NdtLib function and pass in the input message.
         // return a pose message
-        auto msg_out = std::make_shared<geometry_msgs::msg::PoseStamped>();
+
+
         // Form posestamped message for publishing
+        auto msg_out = std::make_shared<geometry_msgs::msg::PoseStamped>();
 
         //TODONE:
         // Publish the pose as a PoseStamped message.
