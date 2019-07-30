@@ -1,11 +1,5 @@
 #include "ndt_matching/ndt_lib.hpp"
 
-#include "rclcpp/rclcpp.hpp"
-
-#include "std_msgs/msg/string.hpp"
-#include <sensor_msgs/msg/point_cloud2.hpp>
-#include <geometry_msgs/msg/pose.hpp>
-
 namespace ndt_matching
 {
 
@@ -16,6 +10,17 @@ NdtLib::NdtLib()
 
 NdtLib::~NdtLib()
 {
+}
+
+int NdtLib::map_update()
+{
+    return 0;
+}
+
+geometry_msgs::msg::Pose NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+{
+    geometry_msgs::msg::Pose msg_out;
+    return msg_out;
 }
 
 int re_3()
