@@ -20,7 +20,14 @@ public:
 
   int update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
   auto align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
+
+private:
+  double helper();
+
 };
+
+
+
 
 }  // namespace ndt_matching
 
