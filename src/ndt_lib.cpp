@@ -5,6 +5,7 @@ namespace ndt_matching
 
 NdtLib::NdtLib()
 {
+    // Hello World!
 }
 
 NdtLib::~NdtLib()
