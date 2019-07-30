@@ -36,9 +36,12 @@ public:
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODO:
         // Call NdtLib function and pass in the input message.
+        // Create NdtLib object
+        ndt_matching::NdtLib ndt_object = ndt_matching::NdtLib();
+
+
+        // Test Output
         int num = 4;
-
-
         RCLCPP_INFO(this->get_logger(), "msg2: [%d]", num);
 
         // return a pose message
