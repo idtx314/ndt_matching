@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <memory>
 #include <string>
+#include "ndt_lib.cpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include "rcutils/cmdline_parser.h"
@@ -35,6 +36,11 @@ public:
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
         //TODO:
         // Call NdtLib function and pass in the input message.
+        int num = 4;
+
+
+        RCLCPP_INFO(this->get_logger(), "msg2: [%d]", num);
+
         // return a pose message
 
 
