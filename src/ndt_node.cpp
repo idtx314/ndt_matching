@@ -34,24 +34,19 @@ public:
       [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) -> void
       {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
-        //TODO:
-        // Call NdtLib function and pass in the input message.
 
+        //TODONE:
         // Create NdtLib object
         ndt_matching::NdtLib ndt_object = ndt_matching::NdtLib();
 
-        // Test Output
-        int num = ndt_matching::re_3();
-        // num = ndt_object.align_scan();
-        RCLCPP_INFO(this->get_logger(), "msg2: [%d]", num);
-
+        // Call NdtLib function and pass in the input message.
         // return a pose message
-
+        auto pose_out = ndt_object.align_scan(msg);
 
         // Form posestamped message for publishing
         auto msg_out = std::make_shared<geometry_msgs::msg::PoseStamped>();
+        msg_out->pose = *pose_out;
 
-        //TODONE:
         // Publish the pose as a PoseStamped message.
         pub_->publish(msg_out);
 
