@@ -1,5 +1,8 @@
 #include "ndt_matching/ndt_lib.hpp"
 
+// Debug
+#include <iostream>
+
 namespace ndt_matching
 {
 
@@ -26,10 +29,13 @@ auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     // TODO: This function should perform alignment between the point cloud passed to it and the map stored in the NdtLib object.
     geometry_msgs::msg::Pose::SharedPtr msg_out = std::make_shared<geometry_msgs::msg::Pose>();
 
+    // Debug calls
+    equation_2(msg);
+
     return msg_out;
 }
 
-Eigen::MatrixXd equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input)
+Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input)
 {
     /* TODO
     Equation 2. Calculates mean vector of a set of points.
@@ -40,10 +46,19 @@ Eigen::MatrixXd equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input)
     */
 
     Eigen::MatrixXd q(3,1);
+    q(0,0)=0;
+    q(1,0)=2;
+    q(2,0)=2;
+
+    std::cout << q << std::endl;
+
+
+
+
     return q;
 }
 
-double equation_3()
+double NdtLib::equation_3()
 {
     /* TODO
     Equation 3. Calculates the covariance matrix of a set of points.
@@ -57,7 +72,7 @@ double equation_3()
     return 0;
 }
 
-double equation_4()
+double NdtLib::equation_4()
 {
     /* TODO
     Equation 4. Calculates the probability that a given point would be present based on the normal distribution representing the points in this cell.
@@ -75,17 +90,17 @@ double equation_4()
 
 
 // TODO
-// double equation_6()
+// double NdtLib::equation_6()
     // Depends on equation 4 and equation 13
-// double equation_7()
+// double NdtLib::equation_7()
     // Depends on equation 2 and equation 13
-// double equation_8()
+// double NdtLib::equation_8()
     // Depends on equation 17, equation 7, and equation 3
-// double equation_13()
+// double NdtLib::equation_13()
     // Independent
-// double equation_17()
+// double NdtLib::equation_17()
     // Depends on Jacobian subcalculations
-// double equation_18()
+// double NdtLib::equation_18()
     // Depends on H7 subcalculations
 
 
