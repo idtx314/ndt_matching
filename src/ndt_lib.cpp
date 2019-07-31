@@ -42,16 +42,20 @@ Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPt
     Inputs:
         a pointcloud containing the points in a map cell.
     Outputs:
-        a 3 vector q, representing the mean vector of the point cloud.
+        a 3x1matrix q, representing the mean vector of the point cloud.
     */
 
     Eigen::MatrixXd q(3,1);
     q(0,0)=0;
-    q(1,0)=2;
-    q(2,0)=2;
+    q(1,0)=0;
+    q(2,0)=0;
 
-    std::cout << q << std::endl;
+    // Convert ref_points to PCL_cloud
 
+    // Cycle through points in PCL_cloud
+        // Make point into a 3vector
+        // q = q + 3vector
+    // q = q / number_of_points
 
 
 
@@ -64,29 +68,44 @@ Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPt
     Equation 3. Calculates the covariance matrix of a set of points.
     Inputs:
         a pointcloud containing the points in a map cell.
-        a 3 vector representing the mean vector of the point cloud.
+        a 3x1 matrix representing the mean vector of the point cloud.
     Outputs:
         a 3x3 matrix C, representing the covariance of the point cloud.
     */
 
 
     Eigen::MatrixXd C(3,3);
+    // Initialize elements to 0
+
+    // Convert ref_points to PCL_cloud
+    // Cycle through points in PCL_cloud
+        // Make point into a 3vector
+        // C = C + ((3vector - mean_vec)*(3vector-mean_vec).transpose())
+    // C = C / (number_of_points - 1)
+
     return C;
 }
 
 double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C)
 {
-    /* TODO
+    /*
     Equation 4. Calculates the probability that a given point would be present based on the normal distribution representing the points in this cell.
     Inputs:
-        a 3 vector representing a point of interest.
-        a 3 vector represeting the mean vector of the reference points in this cell.
+        a 3x1 matrix representing a point of interest.
+        a 3x1 matrix represeting the mean vector of the reference points in this cell.
         a 3x3 matrix representing the covariance of the reference points in this cell.
     Outputs:
         p, a double representing the probability of a point being present at the point of interest, from 0 to 1.
     */
 
-    return 0;
+    double p;
+    double c = 1;  // Normalizing constant
+
+    // Calculate probability
+    Eigen::MatrixXd temp = ( -((input_point - q).transpose()*C*(input_point-q))/2.0 );
+    p = 1.0/c * std::exp(temp(0,0));
+
+    return p;
 }
 
 
@@ -101,9 +120,10 @@ double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen:
 // double NdtLib::equation_13()
     // Independent
 // double NdtLib::equation_17()
-    // Depends on Jacobian subcalculations
+    // Depends on subcalculations
 // double NdtLib::equation_18()
-    // Depends on H7 subcalculations
+    // Depends on subcalculations
+// double NdtLib::subcalculations()
 
 
 

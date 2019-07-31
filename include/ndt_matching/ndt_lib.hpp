@@ -32,6 +32,7 @@ private:
   // double equation_13();
   // double equation_17();
   // double equation_18();
+  // double subcalculations();
 
 };
 
