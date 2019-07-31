@@ -1,0 +1,36 @@
+Installing ROS2 on Ubuntu 16.04, amd64.
+
+
+
+Removed ROS1 and catkin_ws related source commands from .bashrc in home directory.
+
+
+Following instructions for ROS2 installation linked in ndt_matching README.
+    Error: ROS2 Crystal is not available as a debian for Ubuntu 16.04.
+
+    Solution a: Install ROS2 Ardent from debian. Attempt to install and build ndt_matching package as per README.
+        Error: CLI does not recognize colcon command. ROS2 Ardent predates colcon adoption, uses ament instead. I'm concerned that this foreshadows other compatability issues.
+        Solution: Abort use of ROS2 Ardent.
+
+    Solution b: Upgrade system to Ubuntu 18.04.
+        Error: "Could not calculate the upgrade". Message cites the presence of unofficial software packages as the likely cause. Performing a "ppa-purge" command will be necessary, but this will remove all third party PPAs and their software. The list of PPAs on the system and the software they manage suggests significant potential for data loss.
+        Solution: Abort upgrade until the system can be backed up.
+
+    Solution c: Build ROS2 Crystal from source.
+        Error: Failure during colcon build. Error messages cite the names of packages skipped over during "optional" steps of installation.
+        Solution: Complete optional installation steps as well. Workspace builds as expected. Validated with example talker/listener. Stopping at "Alternative Compiler" steps.
+
+
+Attempting to install ROS1 bridge as described in source install instructions.
+    Error 1: Failure to compile, messages suggest conflict with ROS1 Kinetic or trouble with Python 3.
+    Solution: Aborting bridge compilation for now. This utility should not be necessary until much later in the assignment, and I may not get that far.
+
+
+Following ndt_matching README instructions to create new workspace and build the package.
+    Error: Error during colcon build. "Findament_cmake.cmake" was not provided. Possible ENV issue. Googling elements of the error message.
+    Solution: Source opt/ros/crystal/setup.bash
+        Error: There is no opt/ros/crystal directory, as a result of compiling ROS2 from source. The ROS2 root workspace created during compilation contains .bash files which are equivalent.
+        Solution: Source "ros2_ws/install/local_setup.bash" before colcon build. Note that the new ndt_ws is an "overlay" of ros2_ws, as all(?) ROS2 workspaces are overlays of the root workspace created at install.
+
+
+Validated that the ndt_package is working normally by launching ndt_node and evaluating it using the ROS2 command line introspection tools. Subscribers are operating as expected and terminal output indicates that callbacks are running.
