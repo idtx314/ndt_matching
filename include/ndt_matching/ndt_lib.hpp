@@ -23,7 +23,15 @@ public:
   auto align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
-  double cell_center();
+  double equation_2();
+  double equation_3();
+  double equation_4();
+  // double equation_6();
+  // double equation_7();
+  // double equation_8();
+  // double equation_13();
+  // double equation_17();
+  // double equation_18();
 
 };
 
