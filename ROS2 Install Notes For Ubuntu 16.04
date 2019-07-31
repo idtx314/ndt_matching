@@ -1,4 +1,5 @@
 Installing ROS2 on Ubuntu 16.04, amd64.
+ndt_matching Package: https://github.com/idtx314/ndt_matching
 
 
 
@@ -6,6 +7,7 @@ Removed ROS1 and catkin_ws related source commands from .bashrc in home director
 
 
 Following instructions for ROS2 installation linked in ndt_matching README.
+(https://index.ros.org/doc/ros2/Installation/Linux-Install-Debians/)
     Error: ROS2 Crystal is not available as a debian for Ubuntu 16.04.
 
     Solution a: Install ROS2 Ardent from debian. Attempt to install and build ndt_matching package as per README.
@@ -16,12 +18,13 @@ Following instructions for ROS2 installation linked in ndt_matching README.
         Error: "Could not calculate the upgrade". Message cites the presence of unofficial software packages as the likely cause. Performing a "ppa-purge" command will be necessary, but this will remove all third party PPAs and their software. The list of PPAs on the system and the software they manage suggests significant potential for data loss.
         Solution: Abort upgrade until the system can be backed up.
 
-    Solution c: Build ROS2 Crystal from source.
+    Solution c: Build ROS2 Crystal from source. (https://index.ros.org/doc/ros2/Installation/Crystal/Linux-Development-Setup/)
         Error: Failure during colcon build. Error messages cite the names of packages skipped over during "optional" steps of installation.
         Solution: Complete optional installation steps as well. Workspace builds as expected. Validated with example talker/listener. Stopping at "Alternative Compiler" steps.
 
 
 Attempting to install ROS1 bridge as described in source install instructions.
+(https://github.com/ros2/ros1_bridge/blob/master/README.md#building-the-bridge-from-source)
     Error 1: Failure to compile, messages suggest conflict with ROS1 Kinetic or trouble with Python 3.
     Solution: Aborting bridge compilation for now. This utility should not be necessary until much later in the assignment, and I may not get that far.
 
