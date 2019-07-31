@@ -35,7 +35,7 @@ auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     return msg_out;
 }
 
-Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input)
+Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points)
 {
     /* TODO
     Equation 2. Calculates mean vector of a set of points.
@@ -58,7 +58,7 @@ Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPt
     return q;
 }
 
-double NdtLib::equation_3()
+Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points, Eigen::MatrixXd mean_vec)
 {
     /* TODO
     Equation 3. Calculates the covariance matrix of a set of points.
@@ -69,10 +69,12 @@ double NdtLib::equation_3()
         a 3x3 matrix C, representing the covariance of the point cloud.
     */
 
-    return 0;
+
+    Eigen::MatrixXd C(3,3);
+    return C;
 }
 
-double NdtLib::equation_4()
+double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C)
 {
     /* TODO
     Equation 4. Calculates the probability that a given point would be present based on the normal distribution representing the points in this cell.
@@ -81,7 +83,7 @@ double NdtLib::equation_4()
         a 3 vector represeting the mean vector of the reference points in this cell.
         a 3x3 matrix representing the covariance of the reference points in this cell.
     Outputs:
-        p, the probability of a point being present at the point of interest from 0 to 1.
+        p, a double representing the probability of a point being present at the point of interest, from 0 to 1.
     */
 
     return 0;

@@ -24,8 +24,8 @@ public:
 
 private:
   Eigen::MatrixXd equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input);
-  double equation_3();
-  double equation_4();
+  Eigen::MatrixXd equation_3(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points, Eigen::MatrixXd mean_vec);
+  double equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C);
   // double equation_6();
   // double equation_7();
   // double equation_8();
