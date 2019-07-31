@@ -29,7 +29,7 @@ auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     return msg_out;
 }
 
-double equation_2()
+Eigen::MatrixXd equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input)
 {
     /* TODO
     Equation 2. Calculates mean vector of a set of points.
@@ -39,7 +39,8 @@ double equation_2()
         a 3 vector q, representing the mean vector of the point cloud.
     */
 
-    return 0;
+    Eigen::MatrixXd q(3,1);
+    return q;
 }
 
 double equation_3()

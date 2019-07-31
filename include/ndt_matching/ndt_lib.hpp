@@ -23,7 +23,7 @@ public:
   auto align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
-  double equation_2();
+  auto equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input);
   double equation_3();
   double equation_4();
   // double equation_6();
