@@ -1,8 +1,11 @@
 #ifndef NDT_MATCHING__NDT_LIB_HPP_
 #define NDT_MATCHING__NDT_LIB_HPP_
 
-#include <eigen3/Eigen/Dense>
+
 #include "ndt_matching/visibility_control.h"
+#include <eigen3/Eigen/Dense>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
 
 #include "rclcpp/rclcpp.hpp"
 

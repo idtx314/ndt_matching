@@ -27,6 +27,11 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(PCL 1.7 REQUIRED)
+
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 add_library(ndt_lib src/ndt_lib.cpp)
 
@@ -36,6 +41,9 @@ ament_target_dependencies(ndt_lib
   "sensor_msgs"
   "geometry_msgs"
   Eigen3)
+
+target_link_libraries(ndt_lib
+  ${PCL_LIBRARIES})
 
 target_include_directories(ndt_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
