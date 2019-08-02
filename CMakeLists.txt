@@ -28,6 +28,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
+find_package(Boost REQUIRED)
 find_package(pcl_conversions REQUIRED)
 
 include_directories(${PCL_INCLUDE_DIRS})
