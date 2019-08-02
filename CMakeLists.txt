@@ -26,6 +26,7 @@ find_package(rcutils)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
 find_package(Boost REQUIRED)
@@ -42,6 +43,7 @@ ament_target_dependencies(ndt_lib
   "std_msgs"
   "sensor_msgs"
   "geometry_msgs"
+  "ament_index_cpp"
   "pcl_conversions"
   Eigen3)
 

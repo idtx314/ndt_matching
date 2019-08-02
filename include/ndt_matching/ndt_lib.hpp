@@ -3,6 +3,7 @@
 
 
 #include "ndt_matching/visibility_control.h"
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <eigen3/Eigen/Dense>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
