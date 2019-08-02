@@ -20,10 +20,8 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     //TODO: This function should take in a point cloud, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, and store the vector, the segmenting cell size, and the dimensions of the space as metadata in the parent class.
     auto input = msg;
 
-    // Debug map file read
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-
     // Safely attempt file read
+    // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
     // if (pcl::io::loadPCDFile<pcl::PointXYZ> ("map.pcd", *cloud) == -1)
     // {
     //     PCL_ERROR ("Couldn't read file\n");

@@ -28,6 +28,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
+find_package(pcl_conversions REQUIRED)
 
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
@@ -40,9 +41,11 @@ ament_target_dependencies(ndt_lib
   "std_msgs"
   "sensor_msgs"
   "geometry_msgs"
+  "pcl_conversions"
   Eigen3)
 
 target_link_libraries(ndt_lib
+  ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
   ${PCL_LIBRARIES})
 
 target_include_directories(ndt_lib PUBLIC
