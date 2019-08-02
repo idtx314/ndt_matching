@@ -24,15 +24,15 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 
     // Safely attempt file read
-    if (pcl::io::loadPCDFile<pcl::PointXYZ> ("map.pcd", *cloud) == -1)
-    {
-        PCL_ERROR ("Couldn't read file\n");
-        return -1;
-    }
-    std::cout << "Loaded "
-            << cloud->width * cloud->height
-            << " data points from test pcd with the following fields: "
-            << std::endl;
+    // if (pcl::io::loadPCDFile<pcl::PointXYZ> ("map.pcd", *cloud) == -1)
+    // {
+    //     PCL_ERROR ("Couldn't read file\n");
+    //     return -1;
+    // }
+    // std::cout << "Loaded "
+    //         << cloud->width * cloud->height
+    //         << " data points from test pcd with the following fields: "
+    //         << std::endl;
 
     return 0;
 }
