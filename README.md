@@ -1,3 +1,7 @@
+The last commit on Day 2 of the Programming Challenge is tagged as "Challenge_Turnin". Checkout this commit to see the progress I made during the course of the challenge.
+
+
+
 ## Install ROS2
 See: https://index.ros.org/doc/ros2/Installation/Linux-Install-Debians/.  
 **Note:** Stop at "Install additional RMW implementations".
