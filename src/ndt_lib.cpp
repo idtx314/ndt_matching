@@ -32,6 +32,10 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     //         << " data points from test pcd with the following fields: "
     //         << std::endl;
 
+    // // Get the install/<package>/share/<package> directory of the current package. Can throw PackageNotFoundError exception
+    // std::string path = ament_index_cpp::get_package_share_directory("ndt_matching");
+    // std::cout << path << std::endl;
+
     return 0;
 }
 
