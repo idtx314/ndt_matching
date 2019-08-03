@@ -36,6 +36,14 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     // std::string path = ament_index_cpp::get_package_share_directory("ndt_matching");
     // std::cout << path << std::endl;
 
+    // // PointCloud 2 Translation Testing
+    // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    // pcl::fromROSMsg(*msg, *cloud);
+    // sensor_msgs::msg::PointCloud2::SharedPtr msg_out;
+    // msg_out = std::make_shared<sensor_msgs::msg::PointCloud2>();
+    // pcl::toROSMsg(*cloud,*msg_out);
+
+
     return 0;
 }
 
