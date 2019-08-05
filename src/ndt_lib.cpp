@@ -17,7 +17,17 @@ NdtLib::~NdtLib()
 
 int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
-    //TODO: This function should take in a point cloud, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, and store the vector, the segmenting cell size, and the dimensions of the space as metadata in the parent class.
+    /** This function loads a pcd file and segments the resulting point cloud data to be used as a reference map for the NDT Algorithm.
+
+    This function accepts a string containing the absolute path and name of a pcd input file.
+    The contents of the file will be segmented into cubic meter cells and the metadata of each cell calculated and saved into the parent NdtLib object
+    Returns an int indicating success (0) or error (1).
+    */
+
+    //TODO: This function should take in a string, use it to find and read a PCD file into a pcl pointcloud, save the dimensions and offset of the cloud as metadata in the parent class, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, then calculate metadata for each cell.
+    // Points will be allocated to cells based on physical location. This will produce float representation errors when dealing with outlying points, but as long as each point is sorted into exactly one cell the effect of this should be minor.
+
+    // DEBUG: do something with the input
     auto input = msg;
 
     // Safely attempt file read
@@ -44,11 +54,22 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     // pcl::toROSMsg(*cloud,*msg_out);
 
 
+    // Return Success or Failure.
     return 0;
 }
 
 auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
+
+    /** This function attempts to align an input point cloud with the current reference map.
+
+    This function accepts a PointCloud2 sensor message and aligns it with the current reference map using a 3D NDT algorithm.
+
+    The PointCloud will be parsed using PCL and Eigen and iterated until the change in estimated pose between iterations is less than .0001 Meters/Radians. For explanation of the algorithm used, see:
+        M. Magnusson, A. Lilienthal, Scan Registration for Autonomous Mining Vehicles Using 3D-NDT, 2007, Wiley Periodicals
+    */
+
+    // DEBUG: Do something with the input
     auto input = msg;
 
     // TODO: This function should perform alignment between the point cloud passed to it and the map stored in the NdtLib object.
@@ -62,6 +83,10 @@ auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 
 Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points)
 {
+    /** Tis function calculates the mean vector of a set of points in 3D space.
+    This function accepts a vector of 3x1 Eigen matrices representing points in a cloud. It returns their mean vector as a 3x1 Eigen matrix.
+    */
+
     /* TODO
     Equation 2. Calculates mean vector of a set of points.
     Inputs:
@@ -89,6 +114,10 @@ Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPt
 
 Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points, Eigen::MatrixXd mean_vec)
 {
+    /** This function calculates the covariance matrix of a set of points in 3D space.
+    This function accepts a vector of 3x1 matrices representing points in a cloud and the mean vector of those points. It returns an associated 3x3 covariance matrix.
+    */
+
     /* TODO
     Equation 3. Calculates the covariance matrix of a set of points.
     Inputs:
@@ -113,6 +142,8 @@ Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPt
 
 double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C)
 {
+    /** This function returns the probability that a given point would be produced by a Normal Probability Distribution Function that would generate the current reference map.
+    This function accepts a 3x1 matrix representing a point in space, a 3x1 matrix representing the mean vector of the reference map in that region of space, and a 3x3 matrix representing the covariance of the reference map in that region of space. It returns the probability, from 0 to 1, that an NDT function based on the reference map in that region would produce the input point.
     /*
     Equation 4. Calculates the probability that a given point would be present based on the normal distribution representing the points in this cell.
     Inputs:
