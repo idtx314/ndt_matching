@@ -8,14 +8,13 @@ namespace ndt_matching
 
 NdtLib::NdtLib()
 {
-    // Hello World!
 }
 
 NdtLib::~NdtLib()
 {
 }
 
-int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 {
     /** This function loads a pcd file and segments the resulting point cloud data to be used as a reference map for the NDT Algorithm.
 
@@ -58,6 +57,31 @@ int NdtLib::update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     return 0;
 }
 
+NdtLib::Cell::Cell()
+{
+    initialized = false;
+}
+
+void NdtLib::Cell::initialize()
+{
+    /** This function calculates the mean vector q and the covariance matrix C of the points currently included in the Cell object and sets the relevant member variables. It then marks the cell as initialized.
+    */
+
+
+
+
+
+
+    initialized = true;
+}
+
+bool NdtLib::Cell::is_initialized()
+{
+    return initialized;
+}
+
+
+
 auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
 
@@ -75,16 +99,15 @@ auto NdtLib::align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     // TODO: This function should perform alignment between the point cloud passed to it and the map stored in the NdtLib object.
     geometry_msgs::msg::Pose::SharedPtr msg_out = std::make_shared<geometry_msgs::msg::Pose>();
 
-    // Debug calls
-    equation_2(msg);
 
     return msg_out;
 }
 
-Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points)
+void NdtLib::Cell::equation_2()
 {
-    /** Tis function calculates the mean vector of a set of points in 3D space.
-    This function accepts a vector of 3x1 Eigen matrices representing points in a cloud. It returns their mean vector as a 3x1 Eigen matrix.
+    /** This function calculates the mean vector of a set of points in 3D space.
+
+    This function uses the variable point_list_ from its parent object. It sets the 3x1 Eigen matrix variable mean_vector_ in the parent object.
     */
 
     /* TODO
@@ -112,10 +135,11 @@ Eigen::MatrixXd NdtLib::equation_2(const sensor_msgs::msg::PointCloud2::SharedPt
     return q;
 }
 
-Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points, Eigen::MatrixXd mean_vec)
+void NdtLib::Cell::equation_3()
 {
     /** This function calculates the covariance matrix of a set of points in 3D space.
-    This function accepts a vector of 3x1 matrices representing points in a cloud and the mean vector of those points. It returns an associated 3x3 covariance matrix.
+
+    This function uses the variables point_list and mean_vector_ from its parent object. It sets the variable covariance_matrix_ in its parent object.
     */
 
     /* TODO
@@ -143,7 +167,10 @@ Eigen::MatrixXd NdtLib::equation_3(const sensor_msgs::msg::PointCloud2::SharedPt
 double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C)
 {
     /** This function returns the probability that a given point would be produced by a Normal Probability Distribution Function that would generate the current reference map.
+
     This function accepts a 3x1 matrix representing a point in space, a 3x1 matrix representing the mean vector of the reference map in that region of space, and a 3x3 matrix representing the covariance of the reference map in that region of space. It returns the probability, from 0 to 1, that an NDT function based on the reference map in that region would produce the input point.
+    */
+
     /*
     Equation 4. Calculates the probability that a given point would be present based on the normal distribution representing the points in this cell.
     Inputs:

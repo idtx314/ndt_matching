@@ -54,10 +54,11 @@ public:
       };
 
     auto callback2 =
-    [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) -> void
+    [this](const std_msgs::msg::String::SharedPtr msg) -> void
       {
-        RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->header.frame_id.c_str());
-        //TODONE: here you get your map point cloud (one time only)
+        RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->data.c_str());
+
+        // Pass the message pointer to the map update function and await success.
         int error = ndt_object_.update_map(msg);
 
         if(!error){
@@ -71,7 +72,7 @@ public:
     // Note that not all publishers on the same topic with the same type will be compatible:
     // they must have compatible Quality of Service policies.
     sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name, callback);
-    sub2_ = create_subscription<sensor_msgs::msg::PointCloud2>(topic_name2, callback2);
+    sub2_ = create_subscription<std_msgs::msg::String>(topic_name2, callback2);
     // TODONE: create a pose publisher, see for reference
     pub_ = create_publisher<geometry_msgs::msg::PoseStamped>("filtered_points", rmw_qos_profile_default);
     // rclcpp::Rate loop_rate(10);
@@ -79,7 +80,7 @@ public:
 
 private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub2_;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub2_;
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_;
   ndt_matching::NdtLib ndt_object_;
 

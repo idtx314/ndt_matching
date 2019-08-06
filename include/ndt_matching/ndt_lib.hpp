@@ -24,12 +24,30 @@ public:
   NdtLib();
   virtual ~NdtLib();
 
-  int update_map(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
+  int update_map(const std_msgs::msg::String::SharedPtr msg);
   auto align_scan(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
-  Eigen::MatrixXd equation_2(const sensor_msgs::msg::PointCloud2::SharedPtr input);
-  Eigen::MatrixXd equation_3(const sensor_msgs::msg::PointCloud2::SharedPtr ref_points, Eigen::MatrixXd mean_vec);
+  class Cell
+  {
+  public:
+    Cell();
+
+    std::vector<Eigen::MatrixXd> point_list_;
+    Eigen::MatrixXd mean_vector_;
+    Eigen::MatrixXd covariance_matrix_;
+
+    void initialize();
+    bool is_initialized();
+
+  private:
+    bool initialized_;
+
+    void equation_2();
+    void equation_3();
+  };
+
+
   double equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C);
   // double equation_6();
   // double equation_7();
