@@ -11,7 +11,7 @@ See: https://index.ros.org/doc/ros2/Installation/Linux-Install-Debians/.
 cd
 mkdir ndt_ws/src -p
 cd ndt_ws/src
-git clone https://github.com/dejanpan/ndt_matching.git
+git clone https://github.com/idtx314/ndt_matching.git
 cd ..
 colcon build
 ./install/lib/ndt_matching/ndt_node

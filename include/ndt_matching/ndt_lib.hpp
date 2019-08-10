@@ -47,6 +47,7 @@ private:
     void equation_3();
   };
 
+  std::vector<NdtLib::Cell> cell_list_;
 
   double equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C);
   // double equation_6();

@@ -18,16 +18,13 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 {
     /** This function loads a pcd file and segments the resulting point cloud data to be used as a reference map for the NDT Algorithm.
 
-    This function accepts a string containing the absolute path and name of a pcd input file.
+    This function accepts a string containing the absolute path to a pcd input file.
     The contents of the file will be segmented into cubic meter cells and the metadata of each cell calculated and saved into the parent NdtLib object
     Returns an int indicating success (0) or error (1).
     */
 
     //TODO: This function should take in a string, use it to find and read a PCD file into a pcl pointcloud, save the dimensions and offset of the cloud as metadata in the parent class, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, then calculate metadata for each cell.
     // Points will be allocated to cells based on physical location. This will produce float representation errors when dealing with outlying points, but as long as each point is sorted into exactly one cell the effect of this should be minor.
-
-    // DEBUG: do something with the input
-    auto input = msg;
 
     // Safely attempt file read
     // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
@@ -53,13 +50,40 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     // pcl::toROSMsg(*cloud,*msg_out);
 
 
+
+
+    // Begin comment skeleton
+
+    // Read .pcd file into a pcl point cloud.
+    pcl::PointCloud<pcl::PointXYZ> ref_cloud;
+    if(pcl::io::loadPCDFile<pcl::PointXYZ>(msg->data, ref_cloud) == -1)
+        {return 1;}
+
+
+    // Get highest and lowest point value on each axis of cloud
+    // Round away from center of cloud
+    // Save as parent object metadata
+
+    // Reset parent object cell vector to vector of size determined by pointcloud bounds
+    // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
+    // For each cell in cell_list_ trigger initialization
+
+
+
+
+    // Debug
+    std::cout << ref_cloud.width << " " << ref_cloud.height << std::endl;
+
+
+
+
     // Return Success or Failure.
     return 0;
 }
 
 NdtLib::Cell::Cell()
 {
-    initialized = false;
+    initialized_ = false;
 }
 
 void NdtLib::Cell::initialize()
@@ -72,12 +96,12 @@ void NdtLib::Cell::initialize()
 
 
 
-    initialized = true;
+    initialized_ = true;
 }
 
 bool NdtLib::Cell::is_initialized()
 {
-    return initialized;
+    return initialized_;
 }
 
 
@@ -131,8 +155,6 @@ void NdtLib::Cell::equation_2()
     // q = q / number_of_points
 
 
-
-    return q;
 }
 
 void NdtLib::Cell::equation_3()
@@ -161,7 +183,6 @@ void NdtLib::Cell::equation_3()
         // C = C + ((3vector - mean_vec)*(3vector-mean_vec).transpose())
     // C = C / (number_of_points - 1)
 
-    return C;
 }
 
 double NdtLib::equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C)
