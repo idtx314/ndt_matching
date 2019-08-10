@@ -61,8 +61,21 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
 
     // Get highest and lowest point value on each axis of cloud
+    pcl::getMinMax3D(ref_cloud, lower_bound_, upper_bound_);
+    std::cout << lower_bound_ << std::endl << upper_bound_ << std::endl;
     // Round away from center of cloud
-    // Save as parent object metadata
+    upper_bound_ << std::ceil(upper_bound_(0,0)),
+                    std::ceil(upper_bound_(1,0)),
+                    std::ceil(upper_bound_(2,0)),
+                    upper_bound_(3,0);
+    lower_bound_ << std::floor(lower_bound_(0,0)),
+                    std::floor(lower_bound_(1,0)),
+                    std::floor(lower_bound_(2,0)),
+                    lower_bound_(3,0);
+
+    std::cout << lower_bound_ << std::endl << upper_bound_ << std::endl;
+
+
 
     // Reset parent object cell vector to vector of size determined by pointcloud bounds
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
@@ -175,6 +188,8 @@ void NdtLib::Cell::equation_3()
 
 
     Eigen::MatrixXd C(3,3);
+    Eigen::Matrix<float,3,1> L;
+
     // Initialize elements to 0
 
     // Convert ref_points to PCL_cloud

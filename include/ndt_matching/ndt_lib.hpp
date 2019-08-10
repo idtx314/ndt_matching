@@ -5,8 +5,9 @@
 #include "ndt_matching/visibility_control.h"
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <eigen3/Eigen/Dense>
-#include <pcl/io/pcd_io.h>
+#include <pcl/io/pcd_io.h> // TODO: change from pcl to ros_pcl
 #include <pcl/point_types.h>
+#include <pcl/common/common.h>
 #include <pcl_conversions/pcl_conversions.h>
 
 #include "rclcpp/rclcpp.hpp"
@@ -33,6 +34,7 @@ private:
   public:
     Cell();
 
+    // TODO: These don't need to be variable size matrixes
     std::vector<Eigen::MatrixXd> point_list_;
     Eigen::MatrixXd mean_vector_;
     Eigen::MatrixXd covariance_matrix_;
@@ -48,6 +50,7 @@ private:
   };
 
   std::vector<NdtLib::Cell> cell_list_;
+  Eigen::Matrix<float,4,1> lower_bound_, upper_bound_;
 
   double equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C);
   // double equation_6();
