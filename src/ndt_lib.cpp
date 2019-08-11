@@ -78,7 +78,8 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     int vector_size = static_cast<int>(x_range*y_range*z_range);
     cell_list_ = std::vector<NdtLib::Cell> (vector_size);
 
-    // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
+
+    // Store each point from the reference map in the appropriate cell in the parent object.
 
     double segment_size = 1; //todo implement in array construction
     int width_x = static_cast<int>(x_range);
