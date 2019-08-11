@@ -54,13 +54,12 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
     // Begin comment skeleton
 
-    // Read .pcd file into a pcl point cloud.
+    // Read .pcd file into a pcl point cloud to use as a new reference map.
     pcl::PointCloud<pcl::PointXYZ> ref_cloud;
     if(pcl::io::loadPCDFile<pcl::PointXYZ>(msg->data, ref_cloud) == -1)
         {return 1;}
 
-
-    // Get highest and lowest point value on each axis of cloud
+    // Get bounding point value on each axis of the reference cloud.
     pcl::getMinMax3D(ref_cloud, lower_bound_, upper_bound_);
     // Round away from center of cloud
     upper_bound_ << std::ceil(upper_bound_(0,0)),
@@ -72,16 +71,17 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
                     std::floor(lower_bound_(2,0)),
                     lower_bound_(3,0);
 
+    // Clear and set the parent object cell vector to the correct size.
+    double x_range = upper_bound_(0,0) - lower_bound_(0,0);
+    double y_range = upper_bound_(1,0) - lower_bound_(1,0);
+    double z_range = upper_bound_(2,0) - lower_bound_(2,0);
+    int vector_size = static_cast<int>(x_range*y_range*z_range);
+    cell_list_ = std::vector<NdtLib::Cell> (vector_size);
 
-    // Reset parent object cell vector to vector of size determined by pointcloud bounds
-    NdtLib::Cell test_cell;
-    std::vector<NdtLib::Cell> cell_list;
-    cell_list.push_back(test_cell);
-    cell_list_.push_back(test_cell);
 
-    cell_list_ = std::vector<NdtLib::Cell> (10);
-
-    std::cout << cell_list_.size() << std::endl;
+    std::cout << upper_bound_ << std::endl
+              << lower_bound_ << std::endl
+              << cell_list_.size() << std::endl;
 
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
     // For each cell in cell_list_ trigger initialization
