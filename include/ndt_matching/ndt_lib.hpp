@@ -35,9 +35,9 @@ private:
     Cell();
 
     // TODO: These don't need to be variable size matrixes
-    std::vector<Eigen::MatrixXd> point_list_;
-    Eigen::MatrixXd mean_vector_;
-    Eigen::MatrixXd covariance_matrix_;
+    std::vector<Eigen::Matrix<float,3,1>> point_list_;
+    Eigen::Matrix<float,3,1> mean_vector_;
+    Eigen::Matrix<float,3,3> covariance_matrix_;
 
     void initialize();
     bool is_initialized();

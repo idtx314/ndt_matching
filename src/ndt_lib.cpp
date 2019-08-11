@@ -78,12 +78,18 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     int vector_size = static_cast<int>(x_range*y_range*z_range);
     cell_list_ = std::vector<NdtLib::Cell> (vector_size);
 
-
-    std::cout << upper_bound_ << std::endl
-              << lower_bound_ << std::endl
-              << cell_list_.size() << std::endl;
-
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
+    for (pcl::PointXYZ point : ref_cloud)
+    {
+        // Convert to eigen matrix
+        // Get Index
+        // cell_list_[index].point_list_.push_back(point)
+    }
+
+
+
+
+
     // For each cell in cell_list_ trigger initialization
 
 
@@ -102,6 +108,8 @@ void NdtLib::Cell::initialize()
 {
     /** This function calculates the mean vector q and the covariance matrix C of the points currently included in the Cell object and sets the relevant member variables. It then marks the cell as initialized.
     */
+
+    // TODO
 
 
 
