@@ -80,7 +80,7 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
 
-    double segment_size = 1;
+    double segment_size = 1; //todo implement in array construction
     int width_x = static_cast<int>(x_range);
     int width_y = static_cast<int>(y_range);
 
@@ -105,8 +105,11 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
                     width_x * width_y * static_cast<int>(i_point(2,0));
 
         // Add point to correct cell
-        // cell_list_[index].point_list_.push_back(e_point);
+        cell_list_[index].point_list_.push_back(e_point);
 
+        std::cout << e_point << std::endl;
+        std::cout << lower_bound_ << upper_bound_ << std::endl;
+        std::cout << index << std::endl;
         break;
     }
 
