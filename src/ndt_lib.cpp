@@ -79,10 +79,9 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     cell_list.push_back(test_cell);
     cell_list_.push_back(test_cell);
 
+    cell_list_ = std::vector<NdtLib::Cell> (10);
 
-    std::vector<int> test_vec;
-    test_vec.push_back(1);
-
+    std::cout << cell_list_.size() << std::endl;
 
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
     // For each cell in cell_list_ trigger initialization
