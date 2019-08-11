@@ -106,11 +106,16 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
         cell_list_[index].point_list_.push_back(e_point);
     }
 
+    int counter=0;
     // For each cell in cell_list_ trigger initialization
     for (NdtLib::Cell& cell : cell_list_)
     {
         cell.initialize();
+        if (cell.point_list_.size() > 0)
+            counter++;
     }
+
+    std::cout << counter << std::endl;
 
 
     // Return Success.
