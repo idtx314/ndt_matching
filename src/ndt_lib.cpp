@@ -23,36 +23,10 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     Returns an int indicating success (0) or error (1).
     */
 
-    //TODO: This function should take in a string, use it to find and read a PCD file into a pcl pointcloud, save the dimensions and offset of the cloud as metadata in the parent class, compose an appropriately sized vector of cell objects, sort points into the relevant cell objects, then calculate metadata for each cell.
+    //TODO: Clean up this function, move variable declarations to the top, reduce redundant variables, tidy up Eigen math, move index finding into a utility function.
     // Points will be allocated to cells based on physical location. This will produce float representation errors when dealing with outlying points, but as long as each point is sorted into exactly one cell the effect of this should be minor.
 
-    // Safely attempt file read
-    // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    // if (pcl::io::loadPCDFile<pcl::PointXYZ> ("map.pcd", *cloud) == -1)
-    // {
-    //     PCL_ERROR ("Couldn't read file\n");
-    //     return -1;
-    // }
-    // std::cout << "Loaded "
-    //         << cloud->width * cloud->height
-    //         << " data points from test pcd with the following fields: "
-    //         << std::endl;
 
-    // // Get the install/<package>/share/<package> directory of the current package. Can throw PackageNotFoundError exception
-    // std::string path = ament_index_cpp::get_package_share_directory("ndt_matching");
-    // std::cout << path << std::endl;
-
-    // // PointCloud 2 Translation Testing
-    // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    // pcl::fromROSMsg(*msg, *cloud);
-    // sensor_msgs::msg::PointCloud2::SharedPtr msg_out;
-    // msg_out = std::make_shared<sensor_msgs::msg::PointCloud2>();
-    // pcl::toROSMsg(*cloud,*msg_out);
-
-
-
-
-    // Begin comment skeleton
 
     // Read .pcd file into a pcl point cloud to use as a new reference map.
     pcl::PointCloud<pcl::PointXYZ> ref_cloud;
@@ -80,7 +54,6 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
 
     // Store each point from the reference map in the appropriate cell in the parent object.
-
     int width_x = static_cast<int>(x_range);
     int width_y = static_cast<int>(y_range);
 
@@ -106,17 +79,11 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
         cell_list_[index].point_list_.push_back(e_point);
     }
 
-    int counter=0;
     // For each cell in cell_list_ trigger initialization
     for (NdtLib::Cell& cell : cell_list_)
     {
         cell.initialize();
-        if (cell.point_list_.size() > 0)
-            counter++;
     }
-
-    std::cout << counter << std::endl;
-
 
     // Return Success.
     return 0;
