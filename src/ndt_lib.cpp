@@ -77,7 +77,7 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     NdtLib::Cell test_cell;
     std::vector<NdtLib::Cell> cell_list;
     cell_list.push_back(test_cell);
-    // cell_list_.push_back(test_cell);
+    cell_list_.push_back(test_cell);
 
 
     std::vector<int> test_vec;
