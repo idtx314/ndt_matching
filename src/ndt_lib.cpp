@@ -81,7 +81,6 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
     // Store each point from the reference map in the appropriate cell in the parent object.
 
-    double segment_size = 1; //todo implement in array construction
     int width_x = static_cast<int>(x_range);
     int width_y = static_cast<int>(y_range);
 
@@ -98,8 +97,6 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
         i_point(0,0) = i_point(0,0) - lower_bound_(0,0);
         i_point(1,0) = i_point(1,0) - lower_bound_(1,0);
         i_point(2,0) = i_point(2,0) - lower_bound_(2,0);
-            //divide by segment size
-        i_point = i_point / segment_size;
             //calculate index
         int index = static_cast<int>(i_point(0,0)) +
                     width_x * static_cast<int>(i_point(1,0)) +
@@ -107,29 +104,21 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
 
         // Add point to correct cell
         cell_list_[index].point_list_.push_back(e_point);
-
-        std::cout << e_point << std::endl;
-        std::cout << lower_bound_ << upper_bound_ << std::endl;
-        std::cout << index << std::endl;
-        break;
     }
 
-
-// index =
-    // int( shifted_xcoordinate/segment_size ) +
-    // x_width * int(shifted_ycoordinate/segment_size) +
-    // x_width * y_width * int(shifted_zcoordinate/segment_size)
-
-
-
-
-
     // For each cell in cell_list_ trigger initialization
+    for (NdtLib::Cell cell : cell_list_)
+    {
+        cell.initialize();
+    }
+
+    // cell_list_[2000].initialize();
+    std::cout << cell_list_.size() << std::endl
+              << cell_list_[2000].point_list_.size() << std::endl
+              << cell_list_[2000].is_initialized() << std::endl;
 
 
-
-
-    // Return Success or Failure.
+    // Return Success.
     return 0;
 }
 
