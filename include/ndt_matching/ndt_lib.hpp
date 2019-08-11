@@ -50,6 +50,7 @@ private:
   };
 
   std::vector<NdtLib::Cell> cell_list_;
+  std::vector<int> test_vec_;
   Eigen::Matrix<float,4,1> lower_bound_, upper_bound_;
 
   double equation_4(Eigen::MatrixXd input_point, Eigen::MatrixXd q, Eigen::MatrixXd C);
