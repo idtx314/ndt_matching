@@ -79,17 +79,42 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     cell_list_ = std::vector<NdtLib::Cell> (vector_size);
 
     // For each point in ref_cloud determine the index of the appropriate cell in cell_list_, convert to an eigen matrix, and add the point to point_list_ in that cell
+
+    double segment_size = 1;
+    int width_x = static_cast<int>(x_range);
+    int width_y = static_cast<int>(y_range);
+
     for (pcl::PointXYZ point : ref_cloud)
     {
         // Convert to eigen matrix
         Eigen::Matrix<float,3,1> e_point;
-        std::cout << "x:" << point.x << " y:" << point.y << " z:" << point.z << std::endl;
         e_point << point.x, point.y, point.z;
-        std::cout << e_point << std::endl;
+
         // Get Index
-        // cell_list_[index].point_list_.push_back(point)
+        Eigen::Matrix<float,3,1> i_point;
+        i_point = e_point;
+            //shift points into quadrant 1
+        i_point(0,0) = i_point(0,0) - lower_bound_(0,0);
+        i_point(1,0) = i_point(1,0) - lower_bound_(1,0);
+        i_point(2,0) = i_point(2,0) - lower_bound_(2,0);
+            //divide by segment size
+        i_point = i_point / segment_size;
+            //calculate index
+        int index = static_cast<int>(i_point(0,0)) +
+                    width_x * static_cast<int>(i_point(1,0)) +
+                    width_x * width_y * static_cast<int>(i_point(2,0));
+
+        // Add point to correct cell
+        // cell_list_[index].point_list_.push_back(e_point);
+
         break;
     }
+
+
+// index =
+    // int( shifted_xcoordinate/segment_size ) +
+    // x_width * int(shifted_ycoordinate/segment_size) +
+    // x_width * y_width * int(shifted_zcoordinate/segment_size)
 
 
 
