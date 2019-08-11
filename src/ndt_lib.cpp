@@ -107,15 +107,10 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     }
 
     // For each cell in cell_list_ trigger initialization
-    for (NdtLib::Cell cell : cell_list_)
+    for (NdtLib::Cell& cell : cell_list_)
     {
         cell.initialize();
     }
-
-    // cell_list_[2000].initialize();
-    std::cout << cell_list_.size() << std::endl
-              << cell_list_[2000].point_list_.size() << std::endl
-              << cell_list_[2000].is_initialized() << std::endl;
 
 
     // Return Success.
@@ -132,8 +127,7 @@ void NdtLib::Cell::initialize()
     /** This function calculates the mean vector q and the covariance matrix C of the points currently included in the Cell object and sets the relevant member variables. It then marks the cell as initialized.
     */
 
-    // TODO
-
+    // TODO: If 5 or more points in cell, call equation functions and set initialized_ to true. Otherwise end.
 
 
 
