@@ -34,7 +34,6 @@ private:
   public:
     Cell();
 
-    // TODO: These don't need to be variable size matrixes
     std::vector<Eigen::Matrix<float,3,1>> point_list_;
     Eigen::Matrix<float,3,1> mean_vector_;
     Eigen::Matrix<float,3,3> covariance_matrix_;

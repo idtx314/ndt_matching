@@ -82,8 +82,13 @@ int NdtLib::update_map(const std_msgs::msg::String::SharedPtr msg)
     for (pcl::PointXYZ point : ref_cloud)
     {
         // Convert to eigen matrix
+        Eigen::Matrix<float,3,1> e_point;
+        std::cout << "x:" << point.x << " y:" << point.y << " z:" << point.z << std::endl;
+        e_point << point.x, point.y, point.z;
+        std::cout << e_point << std::endl;
         // Get Index
         // cell_list_[index].point_list_.push_back(point)
+        break;
     }
 
 
